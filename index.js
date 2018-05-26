@@ -36,7 +36,7 @@ app.get('/api/courses/:id', (req, res) => {
 	const course = courses.find( course => course.id === parseInt(req.params.id))
 
 	if(!course) {
-		res.status(404).send('The course with the given ID was not found')
+		return res.status(404).send('The course with the given ID was not found')
 	}
 
 	res.send(course)
@@ -72,7 +72,7 @@ app.put('/api/courses/:id', (req, res) => {
 	const course = courses.find( course => course.id === parseInt(req.params.id))
 
 	if(!course) {
-		res.status(404).send('The course with the given ID was not found')
+		return res.status(404).send('The course with the given ID was not found')
 	}
 
 	// object destructuring
@@ -95,6 +95,27 @@ app.put('/api/courses/:id', (req, res) => {
 })
 
 
+app.delete('/api/courses/:id', (req, res) => {
+	// Look up the course
+	// Not exist, return 404
+		// check if the course exists
+	const course = courses.find( course => course.id === parseInt(req.params.id))
+
+	if(!course) {
+		return res.status(404).send('The course with the given ID was not found')
+	}
+
+	// Delete
+	const index = courses.indexOf(course)
+	courses.splice(index, 1) // delete one course
+
+	// return the course deleted course
+	res.send(course)
+})
+
+/**
+* Validate course
+**/
 function validateCourse(course) {
 	const schema = {
 		name: Joi.string().min(3).required()
