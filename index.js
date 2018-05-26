@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/api/courses', (req, res) => {
-	res.send([1, 2, 3, 4])
+	res.send(courses)
 })
 
 // :id is route paramater
@@ -75,26 +75,33 @@ app.put('/api/courses/:id', (req, res) => {
 		res.status(404).send('The course with the given ID was not found')
 	}
 
-	// validate the course
-	const schema = {
-		name: Joi.string().min(3).required()
-	}
+	// object destructuring
+	const { error } = validateCourse(req.body)
 
-	const result = Joi.validate(req.body, schema)
-
-	if (result.error) {
+	if (error) {
 		res.status(400).send(result.error)
 		return // NOTE: if not the script would continue to run and might get Error: Can't set headers after they are sent.
 	}
 
 	// update the course
 	// find the index of the course
-	const courseIndex = courses.findIndex(course => course.id == req.params.id)
-	courses[courseIndex].name = req.body.name
+	// const courseIndex = courses.findIndex(course => course.id == req.params.id)
+	// courses[courseIndex].name = req.body.name
+	// OR
+	course.name = req.body.name
 
 	// return the course
 	res.send(courses)
 })
+
+
+function validateCourse(course) {
+	const schema = {
+		name: Joi.string().min(3).required()
+	}
+
+	return Joi.validate(course, schema)
+}
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`)
