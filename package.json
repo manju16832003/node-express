@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/manju16832003/node-express#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "joi": "^13.3.0"
   }
 }

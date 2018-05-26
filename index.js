@@ -1,5 +1,5 @@
 const express = require('express')
-
+const Joi = require('joi')
 // get express object
 const app = express()
 
@@ -43,11 +43,15 @@ app.get('/api/courses/:id', (req, res) => {
 })
 
 app.post('/api/courses', (req, res) => {
-
 	// validate user input
+	const schema = {
+		name: Joi.string().min(3).required()
+	}
 
-	if (!req.body.name) {
-		res.status(400).send('Name is required')
+	const result = Joi.validate(req.body, schema)
+
+	if (result.error) {
+		res.status(400).send(result.error)
 		return; // NOTE: if not the script would continue to run and might get Error: Can't set headers after they are sent.
 	}
 
