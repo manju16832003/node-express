@@ -1,0 +1,26 @@
+{
+  "name": "node-express",
+  "version": "1.0.0",
+  "description": "Node Express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manju16832003/node-express.git"
+  },
+  "keywords": [
+    "Node",
+    "express"
+  ],
+  "author": "Manjunath Reddy <manju16832003@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manju16832003/node-express/issues"
+  },
+  "homepage": "https://github.com/manju16832003/node-express#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
